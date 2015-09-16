@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::V1::InvoiceControllerTest < ActionController::TestCase
+class Api::V1::InvoicesControllerTest < ActionController::TestCase
   test "#show" do
     get :show, format: :json, id: Invoice.first.id
 

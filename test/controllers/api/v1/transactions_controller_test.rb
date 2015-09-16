@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Api::V1::InvoiceItemControllerTest < ActionController::TestCase
+class Api::V1::TransactionsControllerTest < ActionController::TestCase
   test "#show" do
-    get :show, format: :json, id: InvoiceItem.first.id
+    get :show, format: :json, id: Transaction.first.id
 
     invoice = JSON.parse(response.body, symbolize_names: true)
     assert_response :success
