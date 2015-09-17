@@ -26,7 +26,7 @@ namespace :db do
       i = Item.create({
         name:        row[1],
         description: row[2],
-        unit_price:  ((row[3].to_i)/100.0).to_s,
+        unit_price:  ((row[3].to_i)/100.0),
         merchant_id: row[4].to_i,
         created_at:  row[5],
         updated_at:  row[6] 
@@ -50,7 +50,7 @@ namespace :db do
         item_id:     row[1].to_i,
         invoice_id:  row[2].to_i,
         quantity:    row[3].to_i,
-        unit_price:  ((row[4].to_i)/100.0).to_s,
+        unit_price:  ((row[4].to_i)/100.0),
         created_at:  row[5],
         updated_at:  row[6]
       })

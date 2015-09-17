@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916162348) do
+ActiveRecord::Schema.define(version: 20150916224045) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "customers", force: :cascade do |t|
     t.string   "first_name"
@@ -22,15 +25,15 @@ ActiveRecord::Schema.define(version: 20150916162348) do
 
   create_table "invoice_items", force: :cascade do |t|
     t.integer  "quantity"
-    t.string   "unit_price"
+    t.decimal  "unit_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "invoice_id"
     t.integer  "item_id"
   end
 
-  add_index "invoice_items", ["invoice_id"], name: "index_invoice_items_on_invoice_id"
-  add_index "invoice_items", ["item_id"], name: "index_invoice_items_on_item_id"
+  add_index "invoice_items", ["invoice_id"], name: "index_invoice_items_on_invoice_id", using: :btree
+  add_index "invoice_items", ["item_id"], name: "index_invoice_items_on_item_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
     t.string   "status"
@@ -40,19 +43,19 @@ ActiveRecord::Schema.define(version: 20150916162348) do
     t.integer  "merchant_id"
   end
 
-  add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"
-  add_index "invoices", ["merchant_id"], name: "index_invoices_on_merchant_id"
+  add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id", using: :btree
+  add_index "invoices", ["merchant_id"], name: "index_invoices_on_merchant_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "unit_price"
+    t.decimal  "unit_price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "merchant_id"
   end
 
-  add_index "items", ["merchant_id"], name: "index_items_on_merchant_id"
+  add_index "items", ["merchant_id"], name: "index_items_on_merchant_id", using: :btree
 
   create_table "merchants", force: :cascade do |t|
     t.string   "name"
@@ -68,6 +71,6 @@ ActiveRecord::Schema.define(version: 20150916162348) do
     t.integer  "invoice_id"
   end
 
-  add_index "transactions", ["invoice_id"], name: "index_transactions_on_invoice_id"
+  add_index "transactions", ["invoice_id"], name: "index_transactions_on_invoice_id", using: :btree
 
 end

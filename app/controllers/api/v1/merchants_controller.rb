@@ -40,8 +40,27 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def favorite_customer
-    # params[:merchant_id]
-    respond_with Customer.find_by(id: Invoice.where(merchant_id: params[:merchant_id]).group(:customer_id))
+    respond_with Merchant.find_by(id: params[:merchant_id]).favorite_customer
+  end
+
+  def most_items
+    respond_with Merchant.most_items(params)
+  end
+
+  def most_revenue
+    respond_with Merchant.most_revenue(params)
+  end
+
+  def customers_with_pending_invoices
+    respond_with Merchant.find_by(id: params[:merchant_id]).customers_with_pending_invoices
+  end
+
+  def revenue
+    respond_with Merchant.find_by(id: params[:merchant_id]).revenue(params)
+  end
+
+  def all_revenue
+    respond_with Merchant.all_revenue(params)
   end
 
   private

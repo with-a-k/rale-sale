@@ -10,20 +10,10 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def find
-    if find_value.class == String
-      if find_value[0].downcase == find_value[0]
-        find_value[0] = find_value[0].upcase
-      end
-    end
-    respond_with InvoiceItem.find_by(find_params)
+    respond_with InvoiceItem.where(find_params).first
   end
 
   def find_all
-    if find_value.class == String
-      if find_value[0].downcase == find_value[0]
-        find_value[0] = find_value[0].upcase
-      end
-    end
     respond_with InvoiceItem.where(find_params)
   end
 

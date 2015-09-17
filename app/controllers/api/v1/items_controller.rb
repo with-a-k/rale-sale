@@ -10,20 +10,10 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def find
-    if find_value.class == String
-      if find_value[0].downcase == find_value[0]
-        find_value[0] = find_value[0].upcase
-      end
-    end
-    respond_with Item.find_by(find_params)
+    respond_with Item.where(find_params).first
   end
 
   def find_all
-    if find_value.class == String
-      if find_value[0].downcase == find_value[0]
-        find_value[0] = find_value[0].upcase
-      end
-    end
     respond_with Item.where(find_params)
   end
 
@@ -37,6 +27,18 @@ class Api::V1::ItemsController < ApplicationController
 
   def invoice_items
     respond_with Item.find_by(id: params[:item_id]).invoice_items
+  end
+
+  def most_items
+    respond_with Item.most_items(params)
+  end
+
+  def most_revenue
+    respond_with Item.most_revenue(params)
+  end
+
+  def best_day
+    respond_with Item.find_by(id: params[:item_id]).best_day
   end
 
   private

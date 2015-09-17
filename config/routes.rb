@@ -41,11 +41,14 @@ Rails.application.routes.draw do
       resources :items,            only: [:index, :show] do
         get :invoice_items
         get :merchant
+        get :best_day
 
         collection do
           get :find
           get :find_all
           get :random
+          get :most_revenue
+          get :most_items
         end
       end 
 
@@ -53,11 +56,16 @@ Rails.application.routes.draw do
         get :invoices
         get :items
         get :favorite_customer
+        get :revenue
+        get :customers_with_pending_invoices
 
         collection do
           get :find
           get :find_all
           get :random
+          get :most_revenue
+          get :most_items
+          get :revenue, to: 'merchants#all_revenue'
         end
       end 
 
