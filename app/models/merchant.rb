@@ -23,7 +23,7 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.all_revenue(params)
-    date_revenue = Invoice.successful.where("created_at = '#{params[:date]}'")
+    date_revenue = Invoice.successful.where("invoices.created_at = '#{params[:date]}'")
            .joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price")
     {"total_revenue" => date_revenue}
   end
@@ -39,7 +39,8 @@ class Merchant < ActiveRecord::Base
   def revenue(params)
     if params[:date]
       {"revenue" => self.invoices.successful.where("invoices.created_at = '#{params[:date]}'").joins(:invoice_items).sum('quantity * unit_price')}
+    else
+      {"revenue" => self.invoices.successful.joins(:invoice_items).sum('quantity * unit_price')}
     end
-    {"revenue" => self.invoices.successful.joins(:invoice_items).sum('quantity * unit_price')}
   end
 end
